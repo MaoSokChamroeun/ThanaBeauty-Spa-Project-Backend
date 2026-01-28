@@ -99,6 +99,42 @@ const createPackage = async (req, res) => {
     }
 };
 
+const createPackageFront = async (req, res) => {
+    try {
+        const { package_name, price , description } = req.body;
+        if (!package_name || !price) {
+            return res.status(400).json({
+                success: false,
+                message: 'package name , price are required'
+            });
+        }
+        if (!req.file) {
+            return res.status(400).json({
+                success: false,
+                message: 'Choose your image!'
+            });
+        }
+        // ៣. បង្កើត record ថ្មីក្នុង database
+        const newPackage = await Package.create({
+            package_name: package_name,
+            price: price,
+            description : description,
+            image: req.file ? req.file.filename : null
+        });
+
+        res.status(201).json({
+            success: true,
+            message: 'Create successfully',
+            data: newPackage
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
 const updatePackageById = async(req ,res) => {
     try{
         const {package_name , price , description} = req.body;
@@ -160,4 +196,4 @@ const deletePackage = async(req , res) => {
     }
 }
 
-module.exports = {getAllPackage , createPackage , findPackageById , deletePackage , updatePackageById , getPublicPackage}
+module.exports = {getAllPackage , createPackage , findPackageById , deletePackage , updatePackageById, createPackageFront , getPublicPackage}

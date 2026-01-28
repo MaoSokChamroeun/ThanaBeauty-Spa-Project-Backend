@@ -1,5 +1,5 @@
 const express = require('express')
-const {getAllPackage, createPackage, findPackageById , updatePackageById , deletePackage , getPublicPackage} = require('../controllers/package.controller');
+const {getAllPackage, createPackage, findPackageById , updatePackageById , deletePackage , getPublicPackage, createPackageFront} = require('../controllers/package.controller');
 const {uploadPackageFile} = require('../controllers/upload.controller');
 
 const { restricGuard  } = require('../guard/restric.guard');
@@ -8,6 +8,7 @@ const PackageRouter = express.Router();
 
 PackageRouter.route('/public')
             .get(getPublicPackage)
+            .post(createPackageFront)
 
 PackageRouter.route('/')
             .get(authGuard , restricGuard("admin") , getAllPackage)

@@ -47,6 +47,37 @@ const createBooking = async (req, res) => {
   }
 };
 
+const createBookingFronte = async (req, res) => {
+  try {
+    const { client_name, phone, service,package, description , booking_date , booking_time} = req.body;
+    if (!client_name || !phone || !service || !package || !booking_date || !booking_time) {
+      return res.status(400).json({
+        success: false,
+        message: "The field are required",
+      });
+    }
+
+    const booking = await Booking.create({
+      client_name: client_name,
+      phone: phone,
+      service: service,
+      package : package,
+      description : description,
+      booking_date : booking_date,
+      booking_time : booking_time
+    });
+
+    res.status(201).json({
+      success: true,
+      data: booking,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 const findBookingById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -93,4 +124,4 @@ const deleteBooking = async(req , res) => {
     }
 }
 
-module.exports = { getAllBooking, createBooking ,findBookingById , deleteBooking};
+module.exports = { getAllBooking, createBooking ,findBookingById , deleteBooking , createBookingFronte};
