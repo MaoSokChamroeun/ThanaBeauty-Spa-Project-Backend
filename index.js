@@ -7,7 +7,6 @@ const rateLimit = require('express-rate-limit')
 const helmet  = require('helmet')
 const path = require('path')
 const logger = require('./logger');
-// 1. Config environment variables FIRST
 dotenv.config({ path: './config.env' });
 const app = express();
 const limiter = rateLimit({
@@ -28,10 +27,15 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(limiter)
+// app.use(cors({
+//     origin: 'http://localhost:5173', // Must match your Vite URL exactly
+//     credentials: true,               // Allows cookies to be sent
+// }));
 app.use(cors({
-    origin: true, 
-    credentials: true,
+  origin: process.env.CLIENT_URL,
+  credentials: true,
 }));
+
 app.use(morgan("dev"))
 const db = require('./config/db');
 const AdminRouter = require('./routes/login.route');
