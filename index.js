@@ -44,6 +44,7 @@ const ServiceRouter = require('./routes/services.route');
 const BookingRouter = require('./routes/booking.route');
 const CategoryRouter = require('./routes/category.route');
 const BannerRouter = require('./routes/banner.route');
+const postRouter = require('./routes/post.route')
 const { authGuard } = require('./guard/authGuard.guard');
 
 // 4. Connect to Database
@@ -64,7 +65,7 @@ app.use('/api/booking', BookingRouter)
 app.use('/api/category', CategoryRouter)
 app.use('/api/services' , ServiceRouter)
 app.use('/api/banner', BannerRouter)
-
+app.use('/api/posts' , postRouter)
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server run on port ${port}`);
