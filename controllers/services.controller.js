@@ -83,7 +83,6 @@ const createServices = async (req, res) => {
   try {
     const { price, category, duration } = req.body;
 
-    // បង្កើត Object សម្រាប់ភាសាដោយដៃពី req.body
     const title = {
       en: req.body['title.en'],
       kh: req.body['title.kh'],
@@ -96,7 +95,6 @@ const createServices = async (req, res) => {
       ch: req.body['description.ch']
     };
 
-    // ឆែកលក្ខខណ្ឌ (Validation)
     if (!title.en || !title.kh || !price || !description.en || !duration) {
       return res.status(400).json({
         success: false,
@@ -135,11 +133,11 @@ const getServiceById = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      data: service, // The frontend expects res.data.data
+      data: service, 
     });
   } catch (error) {
     res.status(500).json({
-      success: false, // Added success: false for consistency
+      success: false, 
       message: error.message,
     });
   }
@@ -149,7 +147,6 @@ const updateServiceById = async (req, res) => {
   try {
     const { id } = req.params;
     
-    // ឆែកមើលថាតើ Service មានក្នុង DB ឬអត់
     const existingService = await Service.findById(id);
     if (!existingService) {
       return res.status(404).json({
@@ -158,7 +155,6 @@ const updateServiceById = async (req, res) => {
       });
     }
 
-    // ១. ប្រមូលទិន្នន័យ Title និង Description តាមភាសានីមួយៗពី req.body
     const title = {
       kh: req.body['title.kh'] || existingService.title.kh,
       en: req.body['title.en'] || existingService.title.en,
@@ -171,7 +167,6 @@ const updateServiceById = async (req, res) => {
       ch: req.body['description.ch'] || existingService.description.ch
     };
 
-    // ២. រៀបចំទិន្នន័យសម្រាប់ Update
     const updateData = {
       title: title,
       description: description,
@@ -180,7 +175,6 @@ const updateServiceById = async (req, res) => {
       duration: req.body.duration || existingService.duration
     };
 
-    // ៣. ប្រសិនបើមានការប្តូររូបភាពថ្មី
     if (req.file) {
       updateData.image = req.file.filename;
     }

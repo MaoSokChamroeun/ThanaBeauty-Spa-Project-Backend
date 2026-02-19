@@ -2,7 +2,7 @@ const { verifyToken } = require('../utils/jwt.util');
 const AdminModel = require('../models/Admin.model');
 const logger = require('../logger');
 
-const authGuard = async (req, res, next) => { // Renamed for clarity
+const authGuard = async (req, res, next) => { 
     try {
         let token = null;
         const authHeader = req.headers.authorization;
@@ -30,7 +30,6 @@ const authGuard = async (req, res, next) => { // Renamed for clarity
             });
         }
 
-        // IMPORTANT: We use req.admin so the profile controller can find it
         admin.password = undefined;
         req.admin = admin; 
 
@@ -44,4 +43,4 @@ const authGuard = async (req, res, next) => { // Renamed for clarity
     }
 }
 
-module.exports = { authGuard }; // Exporting as authGuard
+module.exports = { authGuard }; 
