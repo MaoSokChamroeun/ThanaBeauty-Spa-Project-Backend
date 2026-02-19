@@ -78,7 +78,6 @@ const createPackage = async (req, res) => {
                 message: 'Choose your image!'
             });
         }
-        // ៣. បង្កើត record ថ្មីក្នុង database
         const newPackage = await Package.create({
             package_name: package_name,
             price: price,
@@ -114,7 +113,6 @@ const createPackageFront = async (req, res) => {
                 message: 'Choose your image!'
             });
         }
-        // ៣. បង្កើត record ថ្មីក្នុង database
         const newPackage = await Package.create({
             package_name: package_name,
             price: price,

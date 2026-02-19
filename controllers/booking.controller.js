@@ -2,7 +2,6 @@ const Booking = require("../models/Booking.model");
 
 const getAllBooking = async (req, res) => {
   try {
-    // Populate will only work if the models 'Service' and 'Package' are registered
     const booking = await Booking.find()
       .populate("service", "title price duration")
       .populate("package", "package_name");

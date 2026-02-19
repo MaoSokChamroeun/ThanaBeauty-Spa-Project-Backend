@@ -84,7 +84,6 @@ const logout = async (req, res, next) => {
 
 const signup = async (req, res, next) => {
   try {
-    // Safety check: if body is missing, return error instead of crashing
     if (!req.body) {
       return res.status(400).json({ success: false, message: "No data provided" });
     }
