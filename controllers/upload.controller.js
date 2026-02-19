@@ -4,7 +4,6 @@ const fs = require("fs");
 const createStorage = (folderName) => {
   return multer.diskStorage({
     destination: (req, file, cb) => {
-      // បង្កើត path ទៅកាន់ public/services ឬ public/packages
       const folderPath = path.join(__dirname, "../public", folderName);
       if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath, { recursive: true });
@@ -19,14 +18,18 @@ const createStorage = (folderName) => {
   });
 };
 const fileFilter = (req, file, cb) => {
-  const allowTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+  const allowTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp","video/mp4", "video/mkv", "video/quicktime"];
   if (allowTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
     cb(new Error("Only .jpg and .png .webp are allowed!"), false);
   }
 };
-
+const uploadVideo = multer({
+  storage : createStorage("videos"),
+  limits: { fileSize: 50 * 1024 * 1024 }, // 50MB limit
+  fileFilter,
+});
 const uploadService = multer({
   storage: createStorage("services"),
   fileFilter,
@@ -56,6 +59,14 @@ const uploadBanner = multer({
 
 const uploadPostFile = (req, res, next) => {
   uploadPost.single("image")(req, res, (err) => {
+    if (err) return res.status(400).json({ message: err.message });
+    if (!req.file)
+      return res.status(400).json({ message: "Please select a service image" });
+    next();
+  });
+};
+const uploadVideoFile = (req, res, next) => {
+  uploadVideo.single("video")(req, res, (err) => {
     if (err) return res.status(400).json({ message: err.message });
     if (!req.file)
       return res.status(400).json({ message: "Please select a service image" });
@@ -97,4 +108,4 @@ const uploadBannerFile = (req, res, next) => {
   });
 };
 
-module.exports = { uploadServiceFile, uploadPackageFile, uploadBannerFile , uploadPostFile , uploadGalleryFile };
+module.exports = { uploadServiceFile, uploadPackageFile, uploadBannerFile , uploadPostFile , uploadGalleryFile , uploadVideoFile };
