@@ -20,7 +20,7 @@ const limiter = rateLimit({
 // 2. Middleware
 app.use(
   helmet({
-    crossOriginResourcePolicy: false, // អនុញ្ញាតឱ្យទាញយករូបភាពឆ្លង Domain
+    crossOriginResourcePolicy: false, 
   })
 );
 app.use(cookieParser());
@@ -28,7 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(limiter)
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: [process.env.CLIENT_URL, "http://localhost:5173", "http://localhost:3000"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
 
