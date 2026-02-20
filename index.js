@@ -45,8 +45,6 @@ const postRouter = require('./routes/post.route')
 const { authGuard } = require('./guard/authGuard.guard');
 const galleryRouter = require('./routes/gallery.route');
 const videoRouter = require('./routes/video.route');
-
-// 4. Connect to Database
 db();
 app.use(
   morgan("combined", {
