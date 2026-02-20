@@ -21,7 +21,7 @@ const postSchema = new mongoose.Schema({
     },
     author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Admin', // Reference to your Admin model
+        ref: 'Admin', 
         required: true
     },
     tags: [String], // e.g., ['Skincare', 'Massage', 'Promotion']
