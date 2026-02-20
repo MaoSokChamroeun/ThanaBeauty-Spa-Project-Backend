@@ -28,9 +28,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(limiter)
 app.use(cors({
-  origin: [process.env.CLIENT_URL, "http://localhost:5173", "http://localhost:3000"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: true, 
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(morgan("dev"))
