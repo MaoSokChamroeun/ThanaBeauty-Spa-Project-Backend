@@ -28,7 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(limiter)
 app.use(cors({
-  origin: "*", 
+  origin: [process.env.CLIENT_URL, "http://localhost:5173", "http://localhost:3000"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
 
@@ -44,6 +45,8 @@ const postRouter = require('./routes/post.route')
 const { authGuard } = require('./guard/authGuard.guard');
 const galleryRouter = require('./routes/gallery.route');
 const videoRouter = require('./routes/video.route');
+
+// 4. Connect to Database
 db();
 app.use(
   morgan("combined", {

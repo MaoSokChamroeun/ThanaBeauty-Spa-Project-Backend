@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const connectionDB = async () => {
     try {
         const url = process.env.DATABASE_URL || "mongodb://localhost:27017/spa-project";
@@ -9,3 +10,5 @@ const connectionDB = async () => {
         process.exit(1);
     }
 }
+
+module.exports = connectionDB
