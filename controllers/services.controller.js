@@ -108,12 +108,12 @@ const createServices = async (req, res) => {
       price,
       category,
       duration,
-      image: req.file ? req.file.filename : null,
+      image: req.file ? req.file.path : null,
     });
 
     res.status(201).json({
       success: true,
-      message: "បង្កើតសេវាកម្មបានជោគជ័យ!",
+      message: "Service has created successfully!",
       data: services,
     });
   } catch (error) {
@@ -151,7 +151,7 @@ const updateServiceById = async (req, res) => {
     if (!existingService) {
       return res.status(404).json({
         success: false,
-        message: "រកមិនឃើញសេវាកម្មដែលត្រូវកែប្រែឡើយ",
+        message: "Service not found",
       });
     }
 
@@ -176,7 +176,7 @@ const updateServiceById = async (req, res) => {
     };
 
     if (req.file) {
-      updateData.image = req.file.filename;
+      updateData.image = req.file.path;
     }
 
     const updatedService = await Service.findByIdAndUpdate(
@@ -187,7 +187,7 @@ const updateServiceById = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "កែប្រែសេវាកម្មបានជោគជ័យ",
+      message: "Service has update Successfully",
       data: updatedService,
     });
   } catch (error) {

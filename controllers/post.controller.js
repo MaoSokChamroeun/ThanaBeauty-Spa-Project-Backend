@@ -103,7 +103,7 @@ const createPost = async (req, res) => {
       author: author,
       tags: tags,
       isPublished: isPublished,
-      image: req.file ? req.file.filename : "",
+      image: req.file ? req.file.path : "",
     });
 
     res.status(201).json({
@@ -174,7 +174,7 @@ const updatePost = async (req, res) => {
 
     // ប្រសិនបើមាន File រូបភាពថ្មី
     if (req.file) {
-      postData.image = req.file.filename;
+      postData.image = req.file.path;
     }
 
     const updatedPost = await Post.findByIdAndUpdate(

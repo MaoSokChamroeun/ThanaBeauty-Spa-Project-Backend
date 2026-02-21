@@ -54,7 +54,7 @@ const createGallery = async (req, res) => {
     }
 
     const gallery = await Gallery.create({
-      image: req.file.filename,
+      image: req.file.path,
     });
 
     res.status(201).json({
@@ -111,7 +111,7 @@ const updateGallery = async (req, res) => {
 
     const galleryData = await Gallery.findByIdAndUpdate(
       id,
-      { image: req.file.filename },
+      { image: req.file.path },
       { new: true },
     );
     res.status(200).json({

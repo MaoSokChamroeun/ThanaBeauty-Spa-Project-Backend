@@ -21,6 +21,7 @@ const limiter = rateLimit({
 app.use(
   helmet({
     crossOriginResourcePolicy: false, 
+    crossOriginEmbedderPolicy: false,
   })
 );
 app.use(cookieParser());

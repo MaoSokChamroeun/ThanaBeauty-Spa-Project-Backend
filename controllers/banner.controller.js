@@ -33,7 +33,7 @@ const getAllPublicBanners = async (req, res) => {
 const createBanner = async (req, res) => {
     try{
         const banners = await Banner.create({
-            image: req.file ? req.file.filename : "",
+            image: req.file ? req.file.path : "",
         })
         if(!banners){
             return res.status(400).json({
@@ -80,13 +80,10 @@ const findBannerById = async (req, res) => {
 const updateBannerById = async (req, res) => {
     try {
         const { id } = req.params;
-        // 1. Prepare the update data
-        // If a new file is uploaded, use it. Otherwise, we don't change the image.
         const updateData = {};
         if (req.file) {
-            updateData.image = req.file.filename;
+            updateData.image = req.file.path;
         }
-        // 2. Perform the update in the database
         const updatedBanner = await Banner.findByIdAndUpdate(
             id,
             { $set: updateData },

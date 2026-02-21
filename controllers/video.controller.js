@@ -56,7 +56,7 @@ const createVideo = async (req, res) => {
     }
 
     const video = await Video.create({
-      video: req.file.filename,
+      video: req.file.path,
       title : title
     });
 
@@ -115,7 +115,7 @@ const updateVideo = async (req, res) => {
 
     const videoData = await Video.findByIdAndUpdate(
       id,
-      { video: req.file.filename , title : title },
+      { video: req.file.path , title : title },
       { new: true },
     );
     res.status(200).json({

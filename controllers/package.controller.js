@@ -82,7 +82,7 @@ const createPackage = async (req, res) => {
             package_name: package_name,
             price: price,
             description : description,
-            image: req.file ? req.file.filename : null
+            image: req.file ? req.file.path : null
         });
 
         res.status(201).json({
@@ -117,7 +117,7 @@ const createPackageFront = async (req, res) => {
             package_name: package_name,
             price: price,
             description : description,
-            image: req.file ? req.file.filename : null
+            image: req.file ? req.file.path: null
         });
 
         res.status(201).json({
@@ -152,7 +152,7 @@ const updatePackageById = async(req ,res) => {
         };
 
         if(req.file){
-            updateData.image = req.file.filename
+            updateData.image = req.file.path
         }
         const newUpate = await Package.findByIdAndUpdate(
             id,
