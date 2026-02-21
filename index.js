@@ -6,15 +6,16 @@ const cookieParser = require('cookie-parser')
 const rateLimit = require('express-rate-limit')
 const helmet  = require('helmet')
 const path = require('path')
+const axios = require('axios');
 const logger = require('./logger');
 dotenv.config({ path: './config.env' });
 const app = express();
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  limit: 1000, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
-  standardHeaders: 'draft-8', // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
-  ipv6Subnet: 56, // Set to 60 or 64 to be less aggressive, or 52 or 48 to be more aggressive
+  windowMs: 15 * 60 * 1000, 
+  limit: 1000,
+  standardHeaders: 'draft-8', 
+  legacyHeaders: false, 
+  ipv6Subnet: 56, 
 
 })
 // 2. Middleware
@@ -57,6 +58,17 @@ app.use(
     },
   })
 );
+
+if (process.env.NODE_ENV === 'production') {
+  setInterval(() => {
+    axios.get('https://thanabeauty-spa-project-backend-1.onrender.com/ping')
+      .then(() => console.log('Keep-alive ping sent!'))
+      .catch((err) => console.log('Ping failed:', err.message));
+  }, 600000);
+}
+app.get('/ping', (req, res) => {
+  res.status(200).send('Server is awake! 🚀');
+});
 // 5. Mount Routes
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/api/admin', AdminRouter);
@@ -64,7 +76,6 @@ app.use('/api/package', PackageRouter)
 app.use('/api/services', ServiceRouter)
 app.use('/api/booking', BookingRouter)
 app.use('/api/category', CategoryRouter)
-app.use('/api/services' , ServiceRouter)
 app.use('/api/banner', BannerRouter)
 app.use('/api/posts' , postRouter)
 app.use('/api/gallery' , galleryRouter)
