@@ -64,7 +64,7 @@ if (process.env.NODE_ENV === 'production') {
     axios.get('https://thanabeauty-spa-project-backend-1.onrender.com/ping')
       .then(() => console.log('Keep-alive ping sent!'))
       .catch((err) => console.log('Ping failed:', err.message));
-  }, 600000);
+  }, 300000);
 }
 app.get('/ping', (req, res) => {
   res.status(200).send('Server is awake! 🚀');
