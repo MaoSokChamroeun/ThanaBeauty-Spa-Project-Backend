@@ -62,7 +62,7 @@ app.use(
 if (process.env.NODE_ENV === 'production') {
   setInterval(() => {
     axios.get('https://thanabeauty-spa-project-backend-1.onrender.com/ping')
-      .then(() => console.log('Keep-alive ping sent!'))
+      .then(() => console.log('Keep-alive ping sent!' , Date.now()))
       .catch((err) => console.log('Ping failed:', err.message));
   }, 300000);
 }
