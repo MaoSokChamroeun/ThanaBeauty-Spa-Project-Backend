@@ -1,5 +1,5 @@
 const express = require('express')
-const {getAllPackage, createPackage, findPackageById , updatePackageById , deletePackage , getPublicPackage, createPackageFront} = require('../controllers/package.controller');
+const {getAllPackage, createPackage, findPackageById , updatePackageById , deletePackage , getPublicPackage, createPackageFront} = require('../controllers/packages.controller');
 const {uploadPackageFile} = require('../controllers/upload.controller');
 
 const { restricGuard  } = require('../guard/restric.guard');

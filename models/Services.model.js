@@ -6,9 +6,7 @@ const localizedString = {
 }
 const servicesSchema = new mongoose.Schema({
     title : localizedString,
-
     description : localizedString,
-    
     price : {
         type : Number
     },

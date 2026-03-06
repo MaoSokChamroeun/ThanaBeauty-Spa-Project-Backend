@@ -72,7 +72,7 @@ app.get('/ping', (req, res) => {
 // 5. Mount Routes
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/api/admin', AdminRouter);
-app.use('/api/package', PackageRouter)
+app.use('/api/spa-packages', PackageRouter)
 app.use('/api/services', ServiceRouter)
 app.use('/api/booking', BookingRouter)
 app.use('/api/category', CategoryRouter)

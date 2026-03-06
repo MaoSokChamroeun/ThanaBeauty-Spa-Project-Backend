@@ -81,8 +81,7 @@ const getServiceByCategory = async (req, res) => {
 
 const createServices = async (req, res) => {
   try {
-    const { price, category, duration } = req.body;
-
+    const { price, category, duration} = req.body;
     const title = {
       en: req.body['title.en'],
       kh: req.body['title.kh'],
@@ -95,6 +94,7 @@ const createServices = async (req, res) => {
       ch: req.body['description.ch']
     };
 
+  
     if (!title.en || !title.kh || !price || !description.en || !duration) {
       return res.status(400).json({
         success: false,
