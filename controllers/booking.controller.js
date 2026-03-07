@@ -4,7 +4,7 @@ const getAllBooking = async (req, res) => {
   try {
     const booking = await Booking.find()
       .populate("service", "title price duration")
-      .populate("package", "package_name");
+      .populate("package", "title");
 
     res.status(200).json({
       success: true,
